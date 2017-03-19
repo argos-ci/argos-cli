@@ -11,6 +11,8 @@ function setupRaven() {
     release: pkg.version,
   })
 
+  raven.disableConsoleAlerts()
+
   if (!noSentry) {
     raven.install()
   }
