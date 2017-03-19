@@ -5,14 +5,15 @@ Argos command line interface.
 ## Usage
 
 ```
-Usage: argos [options] [command]
+  Usage: argos [options] [command]
 
 
-Commands:
+  Commands:
 
-  upload [options] <directory>  Upload screenshots
+    upload [options] <directory>  Upload screenshots
 
-Options:
+  Options:
 
-  -h, --help  output usage information
+    -h, --help     output usage information
+    -V, --version  output the version number
 ```
