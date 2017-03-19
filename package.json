@@ -32,6 +32,11 @@
     "node-fetch": "^1.6.3",
     "raven": "^1.2.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/argos-ci/argos-cli.git"
+  },
+  "license": "MIT",
   "jest": {
     "roots": [
       "<rootDir>/src"
