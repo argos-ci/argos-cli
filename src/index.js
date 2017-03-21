@@ -1,9 +1,12 @@
 /* eslint-disable no-console */
 import program from 'commander'
 import chalk from 'chalk'
+import updateNotifier from 'update-notifier'
 import setupRaven from './setupRaven'
 import pkg from '../package.json'
 import upload, { UploadError } from './upload'
+
+updateNotifier({ pkg }).notify()
 
 setupRaven()
 
