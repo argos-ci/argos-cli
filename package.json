@@ -2,7 +2,10 @@
   "name": "argos-cli",
   "version": "0.0.3",
   "description": "Argos command line interface.",
-  "repository": "https://github.com/argos-ci/argos",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/argos-ci/argos-cli.git"
+  },
   "license": "MIT",
   "bin": {
     "argos": "bin/argos"
@@ -30,13 +33,9 @@
     "form-data": "^2.1.2",
     "mz": "^2.6.0",
     "node-fetch": "^1.6.3",
-    "raven": "^1.2.0"
+    "raven": "^1.2.0",
+    "update-notifier": "^2.1.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/argos-ci/argos-cli.git"
-  },
-  "license": "MIT",
   "jest": {
     "roots": [
       "<rootDir>/src"
