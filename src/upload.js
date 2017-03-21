@@ -1,7 +1,7 @@
 import fs from 'mz/fs'
-import path from 'path'
 import fetch from 'node-fetch'
 import FormData from 'form-data'
+import readScreenshots from './readScreenshots'
 import config from './config'
 
 export class UploadError extends Error {}
@@ -15,16 +15,17 @@ async function upload(directory, token) {
     throw new UploadError('Commit missing: use ARGOS_COMMIT to specify it.')
   }
 
-  const screenshots = await fs.readdir(directory)
+  const screenshots = await readScreenshots(directory)
 
   const body = screenshots.reduce((body, screenshot) => {
-    body.append('screenshots[]', fs.createReadStream(path.join(directory, screenshot)))
+    body.append('screenshots[]', fs.createReadStream(screenshot))
     return body
   }, new FormData())
 
   body.append('branch', config.get('branch'))
   body.append('commit', config.get('commit'))
   body.append('token', token)
+
 
   return fetch(`${config.get('endpoint')}/builds`, { method: 'POST', body })
 }

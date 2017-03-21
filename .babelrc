@@ -6,5 +6,10 @@
         "node": "current"
       }
     }]
+  ],
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./src"]
+    }]
   ]
 }

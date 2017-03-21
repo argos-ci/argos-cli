@@ -1,6 +1,10 @@
+import { stub } from 'sinon'
 import path from 'path'
+import fetch from 'node-fetch'
 import upload from './upload'
 import config from './config'
+
+jest.mock('node-fetch')
 
 describe('upload', () => {
   beforeEach(() => {
@@ -15,19 +19,46 @@ describe('upload', () => {
     config.reset('endpoint')
   })
 
-  it('should throw if missing branch', () => {
-    config.set('branch', undefined)
-    return upload(path.join(__dirname, '../__fixtures__/screenshots'), 'myToken')
-      .catch((err) => {
-        expect(err.message).toBe('Branch missing: use ARGOS_BRANCH to specify it.')
-      })
+  describe('with missing branch', () => {
+    beforeEach(() => {
+      config.set('branch', undefined)
+    })
+
+    it('should throw', async () => {
+      expect.assertions(1)
+
+      try {
+        await upload(path.join(__dirname, '../__fixtures__/screenshots'), 'myToken')
+      } catch (error) {
+        expect(error.message).toBe('Branch missing: use ARGOS_BRANCH to specify it.')
+      }
+    })
   })
 
-  it('should throw if missing commit', () => {
-    config.set('commit', undefined)
-    return upload(path.join(__dirname, '../__fixtures__/screenshots'), 'myToken')
-      .catch((err) => {
-        expect(err.message).toBe('Commit missing: use ARGOS_COMMIT to specify it.')
-      })
+  describe('with missing commit', () => {
+    beforeEach(() => {
+      config.set('commit', undefined)
+    })
+
+    it('should throw', async () => {
+      expect.assertions(1)
+
+      try {
+        await upload(path.join(__dirname, '../__fixtures__/screenshots'), 'myToken')
+      } catch (error) {
+        expect(error.message).toBe('Commit missing: use ARGOS_COMMIT to specify it.')
+      }
+    })
+  })
+
+  describe('with all good', () => {
+    beforeEach(() => {
+      fetch.mockImplementation(stub().resolves())
+    })
+  })
+
+  it('should upload files', async () => {
+    await upload(path.join(__dirname, '../__fixtures__/screenshots'), 'myToken')
+    expect(fetch.mock.calls[0][0]).toBe('http://localhost/builds')
   })
 })
