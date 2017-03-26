@@ -9,11 +9,14 @@ import upload, { UploadError } from './upload'
 updateNotifier({ pkg }).notify()
 initializeErrorReporter()
 
+const list = value => value.split(',')
+
 program
   .version(pkg.version)
   .command('upload <directory>')
   .description('Upload screenshots')
   .option('-T, --token <token>', 'Repository token')
+  .option('--ignore <list>', 'List of glob files to ignore (ex: "**/*.png,**/diff.jpg")', list)
   .action(async (directory, command) => {
     if (!command.token) {
       console.log(chalk.bold.red('argos-ci: You must provide a repository token using --token.'))
@@ -23,7 +26,11 @@ program
     let json
 
     try {
-      const res = await upload(directory, command.token)
+      const res = await upload({
+        directory,
+        token: command.token,
+        ignore: command.ignore,
+      })
       json = await res.json()
     } catch (error) {
       console.error(chalk.bold.red('argos-ci: Sorry an error happened:\n'))
