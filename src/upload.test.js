@@ -55,10 +55,13 @@ describe('upload', () => {
     beforeEach(() => {
       fetch.mockImplementation(stub().resolves())
     })
-  })
 
-  it('should upload files', async () => {
-    await upload(path.join(__dirname, '../__fixtures__/screenshots'), 'myToken')
-    expect(fetch.mock.calls[0][0]).toBe('http://localhost/builds')
+    it('should upload files', async () => {
+      await upload({
+        directory: path.join(__dirname, '../__fixtures__/screenshots'),
+        token: 'myToken',
+      })
+      expect(fetch.mock.calls[0][0]).toBe('http://localhost/builds')
+    })
   })
 })

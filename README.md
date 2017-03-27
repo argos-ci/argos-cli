@@ -24,3 +24,21 @@ Options:
   -h, --help     output usage information
   -V, --version  output the version number
 ```
+
+### Upload
+
+```sh
+Usage: upload [options] <directory>
+
+Upload screenshots
+
+Options:
+
+  -h, --help           output usage information
+  -T, --token <token>  Repository token
+  --ignore <list>      List of glob files to ignore (ex: "**/*.png,**/diff.jpg")
+```
+
+## License
+
+MIT

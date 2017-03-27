@@ -6,7 +6,11 @@ import config from './config'
 
 export class UploadError extends Error {}
 
-async function upload(directory, token) {
+async function upload({
+  directory,
+  ignore = [],
+  token,
+}) {
   if (!config.get('branch')) {
     throw new UploadError('Branch missing: use ARGOS_BRANCH to specify it.')
   }
@@ -15,7 +19,7 @@ async function upload(directory, token) {
     throw new UploadError('Commit missing: use ARGOS_COMMIT to specify it.')
   }
 
-  const screenshots = await readScreenshots(directory)
+  const screenshots = await readScreenshots({ cwd: directory, ignore })
 
   const body = screenshots.reduce((body, screenshot) => {
     body.append('screenshots[]', fs.createReadStream(screenshot))
