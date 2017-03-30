@@ -3,6 +3,7 @@ import fetch from 'node-fetch'
 import FormData from 'form-data'
 import readScreenshots from './readScreenshots'
 import config from './config'
+import pkg from '../package.json'
 
 export class UploadError extends Error {}
 
@@ -31,7 +32,13 @@ async function upload({
   body.append('token', token)
 
 
-  return fetch(`${config.get('endpoint')}/builds`, { method: 'POST', body })
+  return fetch(`${config.get('endpoint')}/builds`, {
+    headers: {
+      'X-Argos-CLI-Version': pkg.version,
+    },
+    method: 'POST',
+    body,
+  })
 }
 
 export default upload
