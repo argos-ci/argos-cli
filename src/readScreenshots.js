@@ -1,19 +1,15 @@
 import path from 'path'
-import glob from 'glob'
+import glob from 'glob-promise'
 
-const readScreenshots = ({ cwd, ignore = [] }) => new Promise((resolve, reject) => {
-  glob('**/*.{png,jpg}', {
+export const GLOB_PATTERN = '**/*.{png,jpg}'
+
+async function readScreenshots({ cwd, ignore = [] }) {
+  const matches = await glob(GLOB_PATTERN, {
     cwd,
     ignore,
     nodir: true,
-  }, (error, matches) => {
-    if (error) {
-      reject(error)
-      return
-    }
-
-    resolve(matches.map(match => path.resolve(cwd, match)))
   })
-})
+  return matches.map(match => path.resolve(cwd, match))
+}
 
 export default readScreenshots

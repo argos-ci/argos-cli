@@ -28,7 +28,10 @@ describe('upload', () => {
       expect.assertions(1)
 
       try {
-        await upload(path.join(__dirname, '../__fixtures__/screenshots'), 'myToken')
+        await upload({
+          directory: path.join(__dirname, '../__fixtures__/screenshots'),
+          token: 'myToken',
+        })
       } catch (error) {
         expect(error.message).toBe('Branch missing: use ARGOS_BRANCH to specify it.')
       }
@@ -44,9 +47,42 @@ describe('upload', () => {
       expect.assertions(1)
 
       try {
-        await upload(path.join(__dirname, '../__fixtures__/screenshots'), 'myToken')
+        await upload({
+          directory: path.join(__dirname, '../__fixtures__/screenshots'),
+          token: 'myToken',
+        })
       } catch (error) {
         expect(error.message).toBe('Commit missing: use ARGOS_COMMIT to specify it.')
+      }
+    })
+  })
+
+  describe('without a directory', () => {
+    it('should throw', async () => {
+      expect.assertions(1)
+
+      try {
+        await upload({
+          directory: path.join(__dirname, '../__fixtures__/not-a-directory'),
+          token: 'myToken',
+        })
+      } catch (error) {
+        expect(error.message).toBe('The path provided is not a directory.')
+      }
+    })
+  })
+
+  describe('without screenshots', () => {
+    it('should throw', async () => {
+      expect.assertions(1)
+
+      try {
+        await upload({
+          directory: path.join(__dirname, '../__fixtures__/screenshots/empty'),
+          token: 'myToken',
+        })
+      } catch (error) {
+        expect(error.message).toBe('The path provided doesn\'t contain any image (**/*.{png,jpg}).')
       }
     })
   })
