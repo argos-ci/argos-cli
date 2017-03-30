@@ -3,6 +3,7 @@ import path from 'path'
 import fetch from 'node-fetch'
 import upload from './upload'
 import config from './config'
+import pkg from '../package.json'
 
 jest.mock('node-fetch')
 
@@ -98,6 +99,9 @@ describe('upload', () => {
         token: 'myToken',
       })
       expect(fetch.mock.calls[0][0]).toBe('http://localhost/builds')
+      expect(fetch.mock.calls[0][1].headers).toEqual({
+        'X-Argos-CLI-Version': pkg.version,
+      })
     })
   })
 })
