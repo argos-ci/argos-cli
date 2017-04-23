@@ -1,3 +1,4 @@
+import path from 'path'
 import convict from 'convict'
 
 const config = convict({
@@ -21,6 +22,11 @@ const config = convict({
   },
 })
 
+const NODE_ENV = process.env.NODE_ENV || 'development'
+
+if (NODE_ENV !== 'production') {
+  config.loadFile(path.join(__dirname, `../config/${NODE_ENV}.json`))
+}
 config.validate()
 
 export default config

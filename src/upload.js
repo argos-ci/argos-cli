@@ -5,6 +5,7 @@ import isDirectory from './isDirectory'
 import isReadable from './isReadable'
 import readScreenshots, { GLOB_PATTERN } from './readScreenshots'
 import config from './config'
+import { displayInfo } from './display'
 import pkg from '../package.json'
 
 export class UploadError extends Error {}
@@ -36,6 +37,8 @@ async function upload({
     throw new UploadError(`The path provided doesn't contain any image (${GLOB_PATTERN}).`)
   }
 
+  displayInfo(`found ${screenshots.length} screenshots to upload`)
+
   const body = screenshots.reduce((body, screenshot) => {
     body.append('screenshots[]', fs.createReadStream(screenshot))
     return body
@@ -44,7 +47,6 @@ async function upload({
   body.append('branch', config.get('branch'))
   body.append('commit', config.get('commit'))
   body.append('token', token)
-
 
   return fetch(`${config.get('endpoint')}/builds`, {
     headers: {

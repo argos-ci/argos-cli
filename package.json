@@ -11,16 +11,20 @@
     "argos": "bin/argos"
   },
   "keywords": [
-    "visual regression",
+    "visual-regression",
     "diff-ui",
     "compare-screenshots",
-    "review-process"
+    "review-process",
+    "continuous-integration"
   ],
   "scripts": {
-    "dev": "babel --watch -d lib src",
+    "dev:watch": "babel --watch -d lib src",
     "build": "NODE_ENV=production babel -d lib src",
-    "prepublish": "npm run build",
-    "test": "eslint . && jest --runInBand"
+    "prepublish": "pkgfiles",
+    "lint": "eslint .",
+    "test": "yarn lint && yarn test:unit",
+    "test:unit": "jest --runInBand",
+    "test:watch": "yarn test:unit -- --watch"
   },
   "devDependencies": {
     "babel-cli": "^6.24.0",
@@ -37,6 +41,7 @@
     "eslint-plugin-mocha": "^4.9.0",
     "eslint-plugin-react": "^6.10.0",
     "jest": "^19.0.2",
+    "pkgfiles": "^2.3.2",
     "sinon": "^2.1.0"
   },
   "dependencies": {
