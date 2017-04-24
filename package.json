@@ -23,12 +23,12 @@
     "test": "eslint . && jest --runInBand"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.0",
-    "babel-eslint": "^7.1.1",
-    "babel-plugin-module-resolver": "^2.5.0",
-    "babel-preset-env": "^1.2.2",
-    "babel-preset-stage-1": "^6.22.0",
-    "eslint": "^3.18.0",
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^7.2.3",
+    "babel-plugin-module-resolver": "^2.7.0",
+    "babel-preset-env": "^1.4.0",
+    "babel-preset-stage-1": "^6.24.1",
+    "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-find-rules": "^1.14.3",
     "eslint-plugin-babel": "^4.1.1",
@@ -40,12 +40,12 @@
     "sinon": "^2.1.0"
   },
   "dependencies": {
-    "convict": "^2.0.0",
-    "form-data": "^2.1.2",
+    "convict": "^3.0.0",
+    "form-data": "^2.1.4",
     "glob-promise": "^3.1.0",
     "mz": "^2.6.0",
     "node-fetch": "^1.6.3",
-    "raven": "^1.2.0",
+    "raven": "^1.2.1",
     "update-notifier": "^2.1.0"
   },
   "jest": {
