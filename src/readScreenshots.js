@@ -9,7 +9,11 @@ async function readScreenshots({ cwd, ignore = [] }) {
     ignore,
     nodir: true,
   })
-  return matches.map(match => path.resolve(cwd, match))
+
+  return matches.map(match => ({
+    name: match,
+    filename: path.resolve(cwd, match),
+  }))
 }
 
 export default readScreenshots

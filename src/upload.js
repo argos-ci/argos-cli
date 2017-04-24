@@ -39,14 +39,18 @@ async function upload({
 
   displayInfo(`found ${screenshots.length} screenshots to upload`)
 
-  const body = screenshots.reduce((body, screenshot) => {
-    body.append('screenshots[]', fs.createReadStream(screenshot))
-    return body
-  }, new FormData())
+  const body = new FormData()
+  body.append('data', JSON.stringify({
+    branch: config.get('branch'),
+    commit: config.get('commit'),
+    token,
+    names: screenshots.map(screenshot => screenshot.name),
+  }))
 
-  body.append('branch', config.get('branch'))
-  body.append('commit', config.get('commit'))
-  body.append('token', token)
+  screenshots.reduce((body, screenshot) => {
+    body.append('screenshots[]', fs.createReadStream(screenshot.filename))
+    return body
+  }, body)
 
   return fetch(`${config.get('endpoint')}/builds`, {
     headers: {
