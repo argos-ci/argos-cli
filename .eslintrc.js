@@ -1,78 +1,57 @@
 module.exports = {
-  // So parent files don't get applied
-  root: true,
+  root: true, // So parent files don't get applied
   env: {
+    jest: true,
     es6: true,
     browser: true,
     node: true,
-    jest: true,
   },
-  globals: {
-    expect: true,
-  },
-  extends: 'airbnb',
+  extends: ['airbnb', 'plugin:import/recommended'],
   parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 7,
     sourceType: 'module',
   },
-  plugins: [
-    'babel',
-    'jsx-a11y',
-    'mocha',
-  ],
-  rules: {
-    'max-len': ['error', 100, 2, {
-      ignoreUrls: true,
-    }], // airbnb is allowing some edge cases
-    'array-bracket-spacing': ['error', 'never'],
-    'arrow-body-style': 'off',
-    'consistent-this': ['error', 'self'],
-    'func-names': 'off',
-    'no-shadow': 'off',
-    'prefer-arrow-callback': 'off',
-    'global-require': 'off',
-    'no-console': 'error', // airbnb is using warn
-    'no-param-reassign': 'off',
-    'no-prototype-builtins': 'off',
-    'no-use-before-define': ['error', { 'functions': false }], // airbnb have functions: true, annoying
-    'object-curly-spacing': 'off', // use babel plugin rule
-    'operator-linebreak': ['error', 'after'], // aibnb is disabling this rule
-    'no-restricted-syntax': 'off',
-    'babel/object-curly-spacing': ['error', 'always'],
-    'import/extensions': 'off',
-    'import/no-unresolved': 'off',
-    'import/no-extraneous-dependencies': 'off',
-    'import/prefer-default-export': 'off',
-    'react/require-default-props': 'off', // airbnb use error
-    'react/jsx-handler-names': ['error', { // airbnb is disabling this rule
-      eventHandlerPrefix: 'handle',
-      eventHandlerPropPrefix: 'on',
-    }],
-    'react/forbid-prop-types': 'off', // airbnb use error
-    'react/jsx-filename-extension': ['error', {extensions: ['.js']}], // airbnb is using .jsx
-    'react/jsx-max-props-per-line': ['error', {maximum: 3}], // airbnb is disabling this rule
-    'react/no-danger': 'error', // airbnb is using warn
-    'react/no-direct-mutation-state': 'error', // airbnb is disabling this rule
-    'react/no-unused-prop-types': 'off', // Is still buggy
-    'react/sort-prop-types': 'error', // airbnb do nothing here.
-    'react/sort-comp': [2, {
-      order: [
-        'static-methods',
-        'lifecycle',
-        // 'properties', // not real -- NEEDS A PR!!!
-        // '/^handle.+$/', // wishlist -- needs above first
-        // '/^(get|set)(?!(InitialState$|DefaultProps$|ChildContext$)).+$/', // wishlist -- needs above first
-        'everything-else',
-        '/^render.+$/',
-        'render'
-      ],
-    }],
-    'mocha/handle-done-callback': 'error',
-    'mocha/no-exclusive-tests': 'error',
-    'mocha/no-global-tests': 'error',
-    'mocha/no-pending-tests': 'error',
-    'mocha/no-skipped-tests': 'error',
-    'semi': ['error', 'never'],
+  plugins: ['babel', 'import', 'jsx-a11y', 'prettier'],
+  settings: {
+    'import/resolver': {
+      node: {
+        // As configured in webpack and jest
+        moduleDirectory: ['node_modules', 'src'],
+      },
+    },
   },
-};
+  rules: {
+    'max-len': ['error', 100, 2, { ignoreUrls: true }],
+    'arrow-parens': 'off', // Incompatible with prettier
+    semi: ['error', 'never'],
+    'no-shadow': 'off',
+    'no-console': 'error', // Airbnb use 'warn'
+    'no-param-reassign': 'off',
+    'no-nested-ternary': 'off',
+    'no-use-before-define': ['error', { functions: false, classes: false }],
+    'global-require': 'off', // Sounds like a great pattern!
+
+    'react/jsx-filename-extension': ['error', { extensions: ['.js'] }],
+    'react/prop-types': 'off',
+    'react/require-default-props': 'off',
+    'react/forbid-prop-types': 'off',
+    'react/no-unused-prop-types': 'off', // Doesn't work correctly.
+
+    'import/unambiguous': 'off',
+    'import/namespace': 'off', // Do no work?
+    'import/prefer-default-export': 'off',
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }], // Airbnb forbid devDependencies
+    'import/no-unresolved': 'off', // Do not know webpack tricks
+
+    'prettier/prettier': [
+      'error',
+      {
+        singleQuote: true,
+        printWidth: 100,
+        trailingComma: 'all',
+        semi: false,
+      },
+    ],
+  },
+}

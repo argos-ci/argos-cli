@@ -20,6 +20,20 @@ describe('upload', () => {
     config.reset('endpoint')
   })
 
+  describe('with missing token', () => {
+    it('should throw', async () => {
+      expect.assertions(1)
+
+      try {
+        await upload({
+          directory: path.join(__dirname, '../__fixtures__/screenshots'),
+        })
+      } catch (error) {
+        expect(error.message).toMatch('Token missing')
+      }
+    })
+  })
+
   describe('with missing branch', () => {
     beforeEach(() => {
       config.set('branch', undefined)
@@ -34,7 +48,7 @@ describe('upload', () => {
           token: 'myToken',
         })
       } catch (error) {
-        expect(error.message).toBe('Branch missing: use ARGOS_BRANCH to specify it.')
+        expect(error.message).toMatch('Branch missing')
       }
     })
   })
@@ -53,7 +67,7 @@ describe('upload', () => {
           token: 'myToken',
         })
       } catch (error) {
-        expect(error.message).toBe('Commit missing: use ARGOS_COMMIT to specify it.')
+        expect(error.message).toMatch('Commit missing')
       }
     })
   })
@@ -83,7 +97,7 @@ describe('upload', () => {
           token: 'myToken',
         })
       } catch (error) {
-        expect(error.message).toBe('The path provided doesn\'t contain any image (**/*.{png,jpg}).')
+        expect(error.message).toBe("The path provided doesn't contain any image (**/*.{png,jpg}).")
       }
     })
   })
