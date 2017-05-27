@@ -1,6 +1,6 @@
 {
   "name": "argos-cli",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Argos command line interface.",
   "repository": {
     "type": "git",
