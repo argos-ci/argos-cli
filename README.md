@@ -34,9 +34,11 @@ Upload screenshots
 
 Options:
 
-  -h, --help           output usage information
-  -T, --token <token>  Repository token
-  --ignore <list>      List of glob files to ignore (ex: "**/*.png,**/diff.jpg")
+  -h, --help             output usage information
+  -C, --commit <commit>  Git commit
+  -B, --branch <branch>  Git branch
+  -T, --token <token>    Repository token
+  --ignore <list>        List of glob files to ignore (ex: "**/*.png,**/diff.jpg")
 ```
 
 ## License
