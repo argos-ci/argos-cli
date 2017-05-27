@@ -20,7 +20,7 @@
   "scripts": {
     "dev:upload": "babel-node ./src/index upload __fixtures__",
     "build": "NODE_ENV=production babel -d lib src",
-    "prepublish": "pkgfiles",
+    "prepublish": "yarn build && pkgfiles",
     "prettier": "find . -name \"*.js\" | grep -v -f .eslintignore | xargs prettier --write --no-semi --single-quote --trailing-comma all --print-width 100",
     "lint": "eslint .",
     "test": "yarn lint && yarn test:unit && yarn argos",
