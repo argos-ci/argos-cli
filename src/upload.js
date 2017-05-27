@@ -23,7 +23,7 @@ async function upload(options) {
   const token = tokenOption || config.get('token')
   let environment = {}
 
-  if (process.env.ARGOS_CI_TEST !== 'true') {
+  if (process.env.ARGOS_CLI_TEST !== 'true') {
     environment = getEnvironment(process.env)
   }
   const branch = branchOption || config.get('branch') || environment.branch

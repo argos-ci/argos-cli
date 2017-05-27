@@ -3,7 +3,7 @@
 import chalk from 'chalk'
 
 export function displayInfo(message) {
-  if (process.env.ARGOS_CI_TEST === 'true') {
+  if (process.env.ARGOS_CLI_TEST === 'true') {
     return
   }
 
@@ -11,7 +11,7 @@ export function displayInfo(message) {
 }
 
 export function displayError(message) {
-  if (process.env.ARGOS_CI_TEST === 'true') {
+  if (process.env.ARGOS_CLI_TEST === 'true') {
     return
   }
 
