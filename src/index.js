@@ -12,7 +12,7 @@ updateNotifier({ pkg }).notify()
 initializeErrorReporter()
 
 if (process.env.NODE_ENV !== 'production') {
-  process.on('exit', (code) => {
+  process.on('exit', code => {
     console.info(`exit code: ${code}`)
   })
 }
@@ -23,23 +23,19 @@ program
   .version(pkg.version)
   .command('upload <directory>')
   .description('Upload screenshots')
+  .option('-C, --commit <commit>', 'Git commit')
+  .option('-B, --branch <branch>', 'Git branch')
   .option('-T, --token <token>', 'Repository token')
   .option('--ignore <list>', 'List of glob files to ignore (ex: "**/*.png,**/diff.jpg")', list)
   .action(async (directory, command) => {
     console.log(`=== argos-cli: uploading '${directory}' directory...\n`)
-
-    if (!command.token) {
-      displayError('You must provide a repository token using --token.')
-      process.exit(1)
-    }
 
     let json
 
     try {
       const res = await upload({
         directory,
-        token: command.token,
-        ignore: command.ignore,
+        ...command,
       })
       json = await res.json()
 

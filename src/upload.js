@@ -4,23 +4,45 @@ import FormData from 'form-data'
 import isDirectory from './isDirectory'
 import isReadable from './isReadable'
 import readScreenshots, { GLOB_PATTERN } from './readScreenshots'
+import getEnvironment from './getEnvironment'
 import config from './config'
 import { displayInfo } from './display'
 import pkg from '../package.json'
 
 export class UploadError extends Error {}
 
-async function upload({
-  directory,
-  ignore = [],
-  token,
-}) {
-  if (!config.get('branch')) {
-    throw new UploadError('Branch missing: use ARGOS_BRANCH to specify it.')
+async function upload(options) {
+  const {
+    directory,
+    ignore = [],
+    token: tokenOption,
+    branch: branchOption,
+    commit: commitOption,
+  } = options
+
+  const token = tokenOption || config.get('token')
+  let environment = {}
+
+  if (process.env.ARGOS_CI_TEST !== 'true') {
+    environment = getEnvironment(process.env)
+  }
+  const branch = branchOption || config.get('branch') || environment.branch
+  const commit = commitOption || config.get('commit') || environment.commit
+
+  if (environment.ci) {
+    displayInfo(`identified \`${environment.ci}\` environment`)
   }
 
-  if (!config.get('commit')) {
-    throw new UploadError('Commit missing: use ARGOS_COMMIT to specify it.')
+  if (!token) {
+    throw new UploadError('Token missing: use ARGOS_TOKEN or the --token option.')
+  }
+
+  if (!branch) {
+    throw new UploadError('Branch missing: use ARGOS_BRANCH or the --branch option.')
+  }
+
+  if (!commit) {
+    throw new UploadError('Commit missing: use ARGOS_COMMIT or the --commit option.')
   }
 
   if (!await isDirectory(directory)) {
@@ -31,6 +53,9 @@ async function upload({
     throw new UploadError('The path provided is not a readable, please check fs rights.')
   }
 
+  displayInfo(`using \`${branch}\` as branch`)
+  displayInfo(`using \`${commit}\` as commit`)
+
   const screenshots = await readScreenshots({ cwd: directory, ignore })
 
   if (screenshots.length === 0) {
@@ -40,12 +65,15 @@ async function upload({
   displayInfo(`found ${screenshots.length} screenshots to upload`)
 
   const body = new FormData()
-  body.append('data', JSON.stringify({
-    branch: config.get('branch'),
-    commit: config.get('commit'),
-    token,
-    names: screenshots.map(screenshot => screenshot.name),
-  }))
+  body.append(
+    'data',
+    JSON.stringify({
+      branch,
+      commit,
+      token,
+      names: screenshots.map(screenshot => screenshot.name),
+    }),
+  )
 
   screenshots.reduce((body, screenshot) => {
     body.append('screenshots[]', fs.createReadStream(screenshot.filename))

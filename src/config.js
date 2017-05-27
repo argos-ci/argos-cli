@@ -20,6 +20,12 @@ const config = convict({
     default: '',
     env: 'ARGOS_BRANCH',
   },
+  token: {
+    doc: 'Repository token',
+    format: String,
+    default: '',
+    env: 'ARGOS_TOKEN',
+  },
 })
 
 const NODE_ENV = process.env.NODE_ENV || 'development'
