@@ -23,9 +23,10 @@
     "prepublish": "pkgfiles",
     "prettier": "find . -name \"*.js\" | grep -v -f .eslintignore | xargs prettier --write --no-semi --single-quote --trailing-comma all --print-width 100",
     "lint": "eslint .",
-    "test": "yarn lint && yarn test:unit",
+    "test": "yarn lint && yarn test:unit && yarn argos",
     "test:unit": "jest --runInBand",
-    "test:watch": "yarn test:unit -- --watch"
+    "test:watch": "yarn test:unit -- --watch",
+    "argos": "yarn build && NODE_ENV=production ./bin/argos upload __fixtures__ --token $ARGOS_CLI_TOKEN || true"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
