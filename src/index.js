@@ -58,6 +58,7 @@ program
 
     displaySuccess('Upload complete!')
     console.log(chalk.green(`build created id: ${json.build.id}`))
+    console.log(chalk.green(`build url: ${json.build.buildUrl}`))
   })
 
 if (!process.argv.slice(2).length) {
