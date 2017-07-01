@@ -6,6 +6,10 @@
     "type": "git",
     "url": "git+https://github.com/argos-ci/argos-cli.git"
   },
+  "homepage": "https://github.com/argos-ci/argos-cli",
+  "bugs": {
+    "url": "https://github.com/argos-ci/argos-cli/issues"
+  },
   "license": "MIT",
   "bin": {
     "argos": "bin/argos"
