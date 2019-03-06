@@ -99,7 +99,7 @@ function herokuCi(env) {
     ci: 'heroku',
     commit: env.HEROKU_TEST_RUN_COMMIT_VERSION,
     branch: env.HEROKU_TEST_RUN_BRANCH,
-    externalBuildId: `${env.HEROKU_TEST_RUN_ID}-${env.CI_NODE_INDEX}`,
+    externalBuildId: env.HEROKU_TEST_RUN_ID,
     batchCount: env.CI_NODE_TOTAL,
   }
 }

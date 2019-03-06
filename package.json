@@ -24,6 +24,7 @@
   "scripts": {
     "dev:upload": "babel-node ./src/index upload __fixtures__",
     "release": "standard-version && conventional-github-releaser --preset angular",
+    "prebuild": "rm -rf lib",
     "build": "NODE_ENV=production babel -d lib src",
     "prepublish": "yarn build",
     "format": "prettier --write \"**/*.{js,md,json}\" ",
