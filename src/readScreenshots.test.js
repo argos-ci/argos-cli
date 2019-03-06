@@ -9,11 +9,17 @@ describe('readScreenshots', () => {
     expect(screenshots).toEqual([
       {
         name: 'nested/alicia.jpg',
-        filename: path.resolve(__dirname, '../__fixtures__/screenshots/nested/alicia.jpg'),
+        filename: path.resolve(
+          __dirname,
+          '../__fixtures__/screenshots/nested/alicia.jpg',
+        ),
       },
       {
         name: 'penelope.jpg',
-        filename: path.resolve(__dirname, '../__fixtures__/screenshots/penelope.jpg'),
+        filename: path.resolve(
+          __dirname,
+          '../__fixtures__/screenshots/penelope.jpg',
+        ),
       },
     ])
   })
@@ -26,7 +32,10 @@ describe('readScreenshots', () => {
     expect(screenshots).toEqual([
       {
         name: 'penelope.jpg',
-        filename: path.resolve(__dirname, '../__fixtures__/screenshots/penelope.jpg'),
+        filename: path.resolve(
+          __dirname,
+          '../__fixtures__/screenshots/penelope.jpg',
+        ),
       },
     ])
   })

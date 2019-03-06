@@ -5,7 +5,8 @@
 function travis(env) {
   let commit
   let branch
-  const pullRequestNumber = env.TRAVIS_PULL_REQUEST !== 'false' ? env.TRAVIS_PULL_REQUEST : null
+  const pullRequestNumber =
+    env.TRAVIS_PULL_REQUEST !== 'false' ? env.TRAVIS_PULL_REQUEST : null
 
   if (pullRequestNumber && env.TRAVIS_PULL_REQUEST_SHA) {
     commit = env.TRAVIS_PULL_REQUEST_SHA
@@ -41,7 +42,7 @@ function circle(env) {
   let pullRequestNumber = null
 
   if (env.CI_PULL_REQUESTS && env.CI_PULL_REQUESTS !== '') {
-    pullRequestNumber = env.CI_PULL_REQUESTS.split('/').slice(-1)[0]
+    ;[pullRequestNumber] = env.CI_PULL_REQUESTS.split('/').slice(-1)
   }
 
   return {
@@ -83,10 +84,23 @@ function semaphore(env) {
 function buildkite(env) {
   return {
     ci: 'buildkite',
-    pullRequestNumber: env.BUILDKITE_PULL_REQUEST !== 'false' ? env.BUILDKITE_PULL_REQUEST : null,
+    pullRequestNumber:
+      env.BUILDKITE_PULL_REQUEST !== 'false'
+        ? env.BUILDKITE_PULL_REQUEST
+        : null,
     // Buildkite mixes SHAs and non-SHAs in BUILDKITE_COMMIT, so we return null if non-SHA.
     commit: env.BUILDKITE_COMMIT !== 'HEAD' ? env.BUILDKITE_COMMIT : null,
     branch: env.BUILDKITE_BRANCH,
+  }
+}
+
+function herokuCi(env) {
+  return {
+    ci: 'heroku',
+    commit: env.HEROKU_TEST_RUN_COMMIT_VERSION,
+    branch: env.HEROKU_TEST_RUN_BRANCH,
+    externalBuildId: `${env.HEROKU_TEST_RUN_ID}-${env.CI_NODE_INDEX}`,
+    batchCount: env.CI_NODE_TOTAL,
   }
 }
 
@@ -94,19 +108,28 @@ function getCi(env) {
   if (env.TRAVIS_BUILD_ID) {
     // https://docs.travis-ci.com/user/environment-variables/
     return travis
-  } else if (env.JENKINS_URL && env.ghprbPullId) {
+  }
+  if (env.JENKINS_URL && env.ghprbPullId) {
     // Pull Request Builder plugin.
     return jenkins
-  } else if (env.CIRCLECI) {
+  }
+  if (env.CIRCLECI) {
     return circle
-  } else if (env.CI_NAME && env.CI_NAME === 'codeship') {
+  }
+  if (env.CI_NAME && env.CI_NAME === 'codeship') {
     return codeship
-  } else if (env.DRONE === 'true') {
+  }
+  if (env.DRONE === 'true') {
     return drone
-  } else if (env.SEMAPHORE === 'true') {
+  }
+  if (env.SEMAPHORE === 'true') {
     return semaphore
-  } else if (env.BUILDKITE === 'true') {
+  }
+  if (env.BUILDKITE === 'true') {
     return buildkite
+  }
+  if (env.HEROKU_TEST_RUN_ID) {
+    return herokuCi
   }
 
   return () => ({

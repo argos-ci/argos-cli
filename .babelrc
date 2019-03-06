@@ -1,15 +1,20 @@
 {
   "presets": [
-    "stage-1",
-    ["env", {
-      "targets": {
-        "node": "current"
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "node": "8"
+        }
       }
-    }]
+    ]
   ],
   "plugins": [
-    ["module-resolver", {
-      "root": ["./src"]
-    }]
+    [
+      "babel-plugin-module-resolver",
+      {
+        "root": ["./src"]
+      }
+    ]
   ]
 }
