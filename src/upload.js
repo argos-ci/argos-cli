@@ -18,6 +18,8 @@ async function upload(options) {
     token: tokenOption,
     branch: branchOption,
     commit: commitOption,
+    externalBuildId: externalBuildIdOption,
+    batchCount: batchCountOption,
   } = options
 
   const token = tokenOption || config.get('token')
@@ -28,29 +30,43 @@ async function upload(options) {
   }
   const branch = branchOption || config.get('branch') || environment.branch
   const commit = commitOption || config.get('commit') || environment.commit
+  const externalBuildId =
+    externalBuildIdOption ||
+    config.get('externalBuildId') ||
+    environment.externalBuildId
+  const batchCount =
+    batchCountOption || config.get('batchCount') || environment.batchCount
 
   if (environment.ci) {
     displayInfo(`identified \`${environment.ci}\` environment`)
   }
 
   if (!token) {
-    throw new UploadError('Token missing: use ARGOS_TOKEN or the --token option.')
+    throw new UploadError(
+      'Token missing: use ARGOS_TOKEN or the --token option.',
+    )
   }
 
   if (!branch) {
-    throw new UploadError('Branch missing: use ARGOS_BRANCH or the --branch option.')
+    throw new UploadError(
+      'Branch missing: use ARGOS_BRANCH or the --branch option.',
+    )
   }
 
   if (!commit) {
-    throw new UploadError('Commit missing: use ARGOS_COMMIT or the --commit option.')
+    throw new UploadError(
+      'Commit missing: use ARGOS_COMMIT or the --commit option.',
+    )
   }
 
-  if (!await isDirectory(directory)) {
+  if (!(await isDirectory(directory))) {
     throw new UploadError('The path provided is not a directory.')
   }
 
-  if (!await isReadable(directory)) {
-    throw new UploadError('The path provided is not a readable, please check fs rights.')
+  if (!(await isReadable(directory))) {
+    throw new UploadError(
+      'The path provided is not a readable, please check fs rights.',
+    )
   }
 
   displayInfo(`using \`${branch}\` as branch`)
@@ -59,7 +75,9 @@ async function upload(options) {
   const screenshots = await readScreenshots({ cwd: directory, ignore })
 
   if (screenshots.length === 0) {
-    throw new UploadError(`The path provided doesn't contain any image (${GLOB_PATTERN}).`)
+    throw new UploadError(
+      `The path provided doesn't contain any image (${GLOB_PATTERN}).`,
+    )
   }
 
   displayInfo(`found ${screenshots.length} screenshots to upload`)
@@ -71,6 +89,8 @@ async function upload(options) {
       branch,
       commit,
       token,
+      externalBuildId,
+      batchCount,
       names: screenshots.map(screenshot => screenshot.name),
     }),
   )

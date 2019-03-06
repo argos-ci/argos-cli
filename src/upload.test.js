@@ -1,4 +1,3 @@
-import { stub } from 'sinon'
 import path from 'path'
 import fetch from 'node-fetch'
 import upload from './upload'
@@ -97,14 +96,16 @@ describe('upload', () => {
           token: 'myToken',
         })
       } catch (error) {
-        expect(error.message).toBe("The path provided doesn't contain any image (**/*.{png,jpg}).")
+        expect(error.message).toBe(
+          "The path provided doesn't contain any image (**/*.{png,jpg}).",
+        )
       }
     })
   })
 
   describe('with all good', () => {
     beforeEach(() => {
-      fetch.mockImplementation(stub().resolves())
+      fetch.mockImplementation(async () => {})
     })
 
     it('should upload files', async () => {

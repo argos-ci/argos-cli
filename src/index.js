@@ -26,7 +26,17 @@ program
   .option('-C, --commit <commit>', 'Git commit')
   .option('-B, --branch <branch>', 'Git branch')
   .option('-T, --token <token>', 'Repository token')
-  .option('--ignore <list>', 'List of glob files to ignore (ex: "**/*.png,**/diff.jpg")', list)
+  .option('--externalBuildId [string]', 'ID of the build (batch mode)')
+  .option(
+    '--batchCount [int]',
+    'Number of batches expected (batch mode)',
+    parseInt,
+  )
+  .option(
+    '--ignore <list>',
+    'List of glob files to ignore (ex: "**/*.png,**/diff.jpg")',
+    list,
+  )
   .action(async (directory, command) => {
     console.log(`=== argos-cli: uploading '${directory}' directory...\n`)
 
@@ -57,7 +67,7 @@ program
     }
 
     displaySuccess('Upload complete!')
-    console.log(chalk.green(`build created id: ${json.build.id}`))
+    console.log(chalk.green(`build id: ${json.build.id}`))
     console.log(chalk.green(`build url: ${json.build.buildUrl}`))
   })
 

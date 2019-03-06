@@ -26,6 +26,18 @@ const config = convict({
     default: '',
     env: 'ARGOS_TOKEN',
   },
+  externalBuildId: {
+    doc: 'External build id (batch mode)',
+    format: String,
+    default: '',
+    env: 'ARGOS_EXTERNAL_BUILD_ID',
+  },
+  batchCount: {
+    doc: 'Batch count expected (batch mode)',
+    format: String,
+    default: '',
+    env: 'ARGOS_BATCH_COUNT',
+  },
 })
 
 const NODE_ENV = process.env.NODE_ENV || 'development'
@@ -33,6 +45,7 @@ const NODE_ENV = process.env.NODE_ENV || 'development'
 if (NODE_ENV !== 'production') {
   config.loadFile(path.join(__dirname, `../config/${NODE_ENV}.json`))
 }
+
 config.validate()
 
 export default config
