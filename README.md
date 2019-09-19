@@ -12,33 +12,45 @@
 ## Usage
 
 ```sh
-Usage: argos [options] [command]
-
-
-Commands:
-
-  upload [options] <directory>  Upload screenshots
+Usage:  [options] [command]
 
 Options:
+  -V, --version                 output the version number
+  -h, --help                    output usage information
 
-  -h, --help     output usage information
-  -V, --version  output the version number
+Commands:
+  upload [options] <directory>  Upload screenshots
+  cancel [options]              Cancel the build (batch mode only)
 ```
 
 ### Upload
 
 ```sh
-Usage: upload [options] <directory>
+Usage: argos upload [options] <directory>
 
 Upload screenshots
 
 Options:
+  -T, --token <token>         Repository token
+  -C, --commit <commit>       Git commit
+  -B, --branch <branch>       Git branch
+  --externalBuildId [string]  ID of the build (batch mode only)
+  --batchCount [int]          Number of batches expected (batch mode)
+  --ignore <list>             List of glob files to ignore (ex: "**/*.png,**/diff.jpg")
+  -h, --help                  output usage information
+```
 
-  -h, --help             output usage information
-  -C, --commit <commit>  Git commit
-  -B, --branch <branch>  Git branch
-  -T, --token <token>    Repository token
-  --ignore <list>        List of glob files to ignore (ex: "**/*.png,**/diff.jpg")
+### Cancel
+
+```sh
+Usage: argos cancel [options]
+
+Cancel the build (batch mode only)
+
+Options:
+  -T, --token <token>         Repository token
+  --externalBuildId [string]  ID of the build (batch mode only)
+  -h, --help                  output usage information
 ```
 
 ## License
