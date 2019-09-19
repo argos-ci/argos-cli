@@ -1,6 +1,13 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [0.1.2](https://github.com/argos-ci/argos-cli/compare/v0.1.1...v0.1.2) (2019-09-19)
+
+
+### Features
+
+* add cancel command ([bb4e782](https://github.com/argos-ci/argos-cli/commit/bb4e782))
 
 <a name="0.1.1"></a>
 ## [0.1.1](https://github.com/argos-ci/argos-cli/compare/v0.1.0...v0.1.1) (2019-03-06)
