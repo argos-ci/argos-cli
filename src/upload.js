@@ -74,7 +74,7 @@ async function upload(options) {
 
   const screenshots = await readScreenshots({ cwd: directory, ignore })
 
-  if (screenshots.length === 0) {
+  if (screenshots.length === 0 && !externalBuildId) {
     throw new UploadError(
       `The path provided doesn't contain any image (${GLOB_PATTERN}).`,
     )

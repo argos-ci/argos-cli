@@ -87,6 +87,10 @@ describe('upload', () => {
   })
 
   describe('without screenshots', () => {
+    beforeEach(() => {
+      fetch.mockImplementation(async () => {})
+    })
+
     it('should throw', async () => {
       expect.assertions(1)
 
@@ -100,6 +104,15 @@ describe('upload', () => {
           "The path provided doesn't contain any image (**/*.{png,jpg}).",
         )
       }
+    })
+
+    it('should not throw with externalBuildId', async () => {
+      await upload({
+        directory: path.join(__dirname, '../__fixtures__/screenshots/empty'),
+        token: 'myToken',
+        externalBuildId: 'x',
+      })
+      expect(fetch).toHaveBeenCalled()
     })
   })
 
