@@ -34,6 +34,7 @@ program
     'Number of batches expected (batch mode)',
     parseInt,
   )
+  .option('--name [string]', 'Name of the build')
   .option(
     '--ignore <list>',
     'List of glob files to ignore (ex: "**/*.png,**/diff.jpg")',
