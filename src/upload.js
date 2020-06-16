@@ -19,6 +19,7 @@ async function upload(options) {
     branch: branchOption,
     commit: commitOption,
     externalBuildId: externalBuildIdOption,
+    name: nameOption,
     batchCount: batchCountOption,
   } = options
 
@@ -34,6 +35,7 @@ async function upload(options) {
     externalBuildIdOption ||
     config.get('externalBuildId') ||
     environment.externalBuildId
+  const name = nameOption || config.get('name') || environment.name
   const batchCount =
     batchCountOption || config.get('batchCount') || environment.batchCount
 
@@ -86,6 +88,7 @@ async function upload(options) {
   body.append(
     'data',
     JSON.stringify({
+      name,
       branch,
       commit,
       token,

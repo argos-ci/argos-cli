@@ -38,6 +38,12 @@ const config = convict({
     default: '',
     env: 'ARGOS_BATCH_COUNT',
   },
+  name: {
+    doc: 'Build name',
+    format: String,
+    default: '',
+    env: 'ARGOS_BUILD_NAME',
+  },
 })
 
 const NODE_ENV = process.env.NODE_ENV || 'development'
