@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/argos-ci/argos-cli/compare/v0.1.3...v0.2.0) (2020-06-17)
+
+
+### ⚠ BREAKING CHANGES
+
+* **deps:** drop Node.js v8 support
+
+### Features
+
+* **build:** add build name ([85a0592](https://github.com/argos-ci/argos-cli/commit/85a059207282ce3435fbfd58fba3239de681156b))
+
+
+* **deps:** upgrade ([6f922cc](https://github.com/argos-ci/argos-cli/commit/6f922cc022b99cfe2b5994f97415cd1999ee8c16))
+
 ### [0.1.3](https://github.com/argos-ci/argos-cli/compare/v0.1.2...v0.1.3) (2019-10-18)
 
 
