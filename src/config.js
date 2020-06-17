@@ -4,7 +4,7 @@ import convict from 'convict'
 const config = convict({
   endpoint: {
     doc: 'Argos API endpoint',
-    format: 'url',
+    format: 'String',
     default: 'https://api.argos-ci.com',
     env: 'ARGOS_API_ENDPOINT',
   },
