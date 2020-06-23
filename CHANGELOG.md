@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/argos-ci/argos-cli/compare/v0.2.0...v0.3.0) (2020-06-23)
+
+
+### ⚠ BREAKING CHANGES
+
+* **build-name:** --externalBuildId is now --external-build-id
+
+### Features
+
+* **build-name:** add build-name option ([5b833d1](https://github.com/argos-ci/argos-cli/commit/5b833d1668dc5858b7dbfdaf187975d22a4c2330))
+
 ## [0.2.0](https://github.com/argos-ci/argos-cli/compare/v0.1.3...v0.2.0) (2020-06-17)
 
 
