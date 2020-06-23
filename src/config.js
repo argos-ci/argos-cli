@@ -38,7 +38,7 @@ const config = convict({
     default: '',
     env: 'ARGOS_BATCH_COUNT',
   },
-  name: {
+  buildName: {
     doc: 'Build name',
     format: String,
     default: '',

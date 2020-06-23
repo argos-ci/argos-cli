@@ -13,12 +13,12 @@ updateNotifier({ pkg }).notify()
 initializeErrorReporter()
 
 if (process.env.NODE_ENV !== 'production') {
-  process.on('exit', code => {
+  process.on('exit', (code) => {
     console.info(`exit code: ${code}`)
   })
 }
 
-const list = value => value.split(',')
+const list = (value) => value.split(',')
 
 program.version(pkg.version)
 
@@ -28,13 +28,13 @@ program
   .option('-T, --token <token>', 'Repository token')
   .option('-C, --commit <commit>', 'Git commit')
   .option('-B, --branch <branch>', 'Git branch')
-  .option('--externalBuildId [string]', 'ID of the build (batch mode only)')
+  .option('--external-build-id [string]', 'ID of the build (batch mode only)')
   .option(
     '--batchCount [int]',
     'Number of batches expected (batch mode)',
     parseInt,
   )
-  .option('--name [string]', 'Name of the build')
+  .option('--build-name [string]', 'Name of the build')
   .option(
     '--ignore <list>',
     'List of glob files to ignore (ex: "**/*.png,**/diff.jpg")',
@@ -78,8 +78,8 @@ program
   .command('cancel')
   .description('Cancel the build (batch mode only)')
   .option('-T, --token <token>', 'Repository token')
-  .option('--externalBuildId [string]', 'ID of the build (batch mode only)')
-  .action(async command => {
+  .option('--external-build-id [string]', 'ID of the build (batch mode only)')
+  .action(async (command) => {
     console.log(`=== argos-cli: canceling build`)
 
     let json
