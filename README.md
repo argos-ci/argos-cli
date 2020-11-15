@@ -26,7 +26,7 @@ Commands:
 ### Upload
 
 ```sh
-Usage: index upload [options] <directory>
+Usage: argos upload [options] <directory>
 
 Upload screenshots
 
