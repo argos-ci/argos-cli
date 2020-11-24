@@ -87,7 +87,7 @@ program
     try {
       const res = await cancel({ ...command })
       try {
-        json = await res.json();
+        json = await res.json()
       } catch (error) {
         throw new Error(`Failed to parse response body as JSON:\n\n${await res.text()}`)
       }
