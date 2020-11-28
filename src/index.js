@@ -86,7 +86,7 @@ program
 
     try {
       const res = await cancel({ ...command })
-      const text = await res.text();
+      const text = await res.text()
       try {
         json = JSON.parse(text)
       } catch (error) {
