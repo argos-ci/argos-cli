@@ -50,7 +50,12 @@ program
         directory,
         ...command,
       })
-      json = await res.json()
+      const text = await res.text()
+      try {
+        json = JSON.parse(text)
+      } catch (error) {
+        throw new Error(`${res.status}: Failed to parse response body as JSON:\n\n${text}`)
+      }
 
       if (json.error) {
         throw new UploadError(json.error.message)
