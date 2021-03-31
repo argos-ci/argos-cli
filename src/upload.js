@@ -18,6 +18,7 @@ async function upload(options) {
     token: tokenOption,
     branch: branchOption,
     commit: commitOption,
+    compareCommit: compareCommitOption,
     externalBuildId: externalBuildIdOption,
     buildName: buildNameOption,
     batchCount: batchCountOption,
@@ -31,6 +32,7 @@ async function upload(options) {
   }
   const branch = branchOption || config.get('branch') || environment.branch
   const commit = commitOption || config.get('commit') || environment.commit
+  const compareCommit = compareCommitOption || config.get('compareCommit') || environment.compareCommit
   const externalBuildId =
     externalBuildIdOption ||
     config.get('externalBuildId') ||
@@ -73,6 +75,9 @@ async function upload(options) {
 
   displayInfo(`using \`${branch}\` as branch`)
   displayInfo(`using \`${commit}\` as commit`)
+  if (compareCommit) {
+    displayInfo(`using \`${compareCommit}\` as a comparison`)
+  }
 
   const screenshots = await readScreenshots({ cwd: directory, ignore })
 
@@ -91,6 +96,7 @@ async function upload(options) {
       name,
       branch,
       commit,
+      compareCommit,
       token,
       externalBuildId,
       batchCount,
