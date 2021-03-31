@@ -14,6 +14,12 @@ const config = convict({
     default: '',
     env: 'ARGOS_COMMIT',
   },
+  compareCommit: {
+    doc: 'Git commit to compare to',
+    format: String,
+    default: '',
+    env: 'ARGOS_COMPARE_COMMIT',
+  },
   branch: {
     doc: 'Git branch',
     format: String,
