@@ -1,13 +1,6 @@
 # argos-cli
 
-> Argos command line interface.
-
-[![npm version](https://img.shields.io/npm/v/argos-cli.svg?style=flat-square)](https://www.npmjs.com/package/argos-cli)
-[![npm downloads](https://img.shields.io/npm/dm/argos-cli.svg?style=flat-square)](https://www.npmjs.com/package/argos-cli)
-[![Build Status](https://travis-ci.org/argos-ci/argos-cli.svg?branch=master)](https://travis-ci.org/argos-ci/argos-cli)
-
-[![Dependencies](https://img.shields.io/david/argos-ci/argos-cli.svg?style=flat-square)](https://david-dm.org/argos-ci/argos-cli)
-[![DevDependencies](https://img.shields.io/david/dev/argos-ci/argos-cli.svg?style=flat-square)](https://david-dm.org/argos-ci/argos-cli#info=devDependencies&view=list)
+> This package is deprecated, see https://github.com/argos-ci/argos-javascript
 
 ## Usage
 
